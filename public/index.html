@@ -1,13 +1,107 @@
+﻿<!DOCTYPE html>
 <html>
-
 <head>
-  <title>Express</title>
-  <link rel="stylesheet" href="/stylesheets/style.css">
+    <meta charset="utf-8" />
+    <title>Đăng Ký</title>
+	<link href="css/bootstrap.css" rel="stylesheet" />
+	<link href="css2/dky.css" rel="stylesheet" />
 </head>
+<script language="javascript">
 
+	function SDT()
+    {
+        var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+		var PhoneNumber = document.forms["form"]["exampleInputPhoneNumber"].value;
+		var PhoneLength = PhoneNumber.length;
+        if (PhoneLength < 10) { alert("Số điện thoại quá ngắn (10 chữ số)"); return; }
+        if (PhoneLength > 10) { alert("Số điện thoại quá dài (10 chữ số)"); return; }
+        if (vnf_regex.test(PhoneNumber) == false){ alert("Số điện thoại sai định dạng"); return; }
+	}
+	function EmailCheck()
+	{
+		var Email = document.forms["form"]["exampleInputEmail1"].value;
+		var LengthA = Email.indexOf("@");
+		var LengthCham = Email.indexOf(".");
+		if (LengthA < 1) { alert("Thieu @"); return; }
+		if (LengthCham < 3) alert("Thiếu dấu .");
+	}
+	function PWCheck()
+	{
+		var Password1 = document.forms["form"]["exampleInputPassword1"].value;
+		var Password1Length = Password1.length;
+		if (Password1Length < 3) alert("Mật khẩu quá ngắn");
+	}
+	function LNCheck()
+	{
+		var LastName = document.forms["form"]["exampleInputLastName"].value;
+		var LastNameLength = LastName.length;
+		if (LastNameLength < 3) alert("Tên quá ngắn");
+	}
+	function FNCheck()
+	{
+		var FirstName =document.forms["form"]["exampleInputFirstName"].value;
+		var FirstNameLength = FirstName.length;
+		if (FirstNameLength < 3) alert("Họ quá ngắn");
+	}
+	function KiemTra()
+	{
+		var Sub = document.forms["form"]["Sub"].value;
+		/*if (typeof Sub != "undefined")
+			alert("Thanh Cong");*/
+		var FirstName =document.forms["form"]["exampleInputFirstName"].value;
+		var LastName = document.forms["form"]["exampleInputLastName"].value;
+		var PhoneNumber = document.forms["form"]["exampleInputPhoneNumber"].value;
+		var Email = document.forms["form"]["exampleInputEmail1"].value;
+		var Password1 = document.forms["form"]["exampleInputPassword1"].value;
+		var RePassword1 = document.forms["form"]["exampleInputRePassword1"].value;
+		
+		
+		if (FirstName == "" || LastName == "" || PhoneNumber == "" ||Email =="" ||Password1==""||RePassword1=="")
+		{
+			alert("Chưa Nhập Đầy Đủ Thông Tin");
+			return false;
+		}
+		if(Password1 != RePassword1)
+		{
+			alert("Xác Nhận Mật Khẩu Sai");
+			return false;
+		}
+		return true;
+	}
+</script>
 <body>
-  <h1>Express</h1>
-  <p>Welcome to Express</p>
+	<form class="dk-card" name="form" onsubmit="return KiemTra()">
+		<div class="grid-container">
+			<div class="form-group grid-item1">
+				<label for="exampleInputFirstName">Họ<label>
+				<input type="text"  id="exampleInputFirstName" placeholder="Nhập Họ" maxlength="7" onchange="FNCheck()">
+			</div>
+			<div class="form-group grid-item2">
+				<label for="exampleInputLastName">Tên Đệm<label>
+				<input type="text"  id="exampleInputLastName" placeholder="Nhập Tên Đệm" maxlength="7" onchange="LNCheck()">
+			</div>
+		</div>
+		<div>
+			<div class="form-group">
+				<label for="exampleInputPhoneNumber">Số Điện Thoại<label>
+				<input type="number"  id="exampleInputPhoneNumber" placeholder="Nhập Số Điện Thoại" value="0" maxlength="10" onchange="SDT()">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputEmail1">Email address</label>
+				<input type="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" onchange="EmailCheck()">
+			</div>
+		</div>
+		<div class="grid-container">
+			<div class="form-group grid-item1">
+				<label for="exampleInputPassword1">Password</label>
+				<input type="password" id="exampleInputPassword1" placeholder="Password" maxlength="32" onchange="PWCheck()">
+			</div>
+			<div class="form-group grid-item2">
+				<label for="exampleInputRePassword1">Nhập Lại</label>
+				<input type="password" id="exampleInputRePassword1" placeholder="Nhập Lại">
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary" id="Sub">Đăng Ký</button>
+	</form>
 </body>
-
 </html>
